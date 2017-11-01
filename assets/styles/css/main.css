@@ -1,0 +1,95 @@
+/* line 7, ../sass/main.scss */
+.login-form .form-sub, .user-form .form-sub {
+  color: #444444;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 24px;
+  opacity: 0.6;
+}
+/* line 13, ../sass/main.scss */
+.login-form .email, .login-form .password, .login-form .username, .user-form .email, .user-form .password, .user-form .username {
+  height: 45px;
+  border: solid 1px #3f939e;
+  margin: 15px 0;
+  background-repeat: no-repeat;
+  background-size: contain;
+  padding-left: 50px;
+}
+/* line 21, ../sass/main.scss */
+.login-form .email, .user-form .email {
+  background-image: url("../images/icon-envelope.jpg");
+}
+/* line 24, ../sass/main.scss */
+.login-form .username, .user-form .username {
+  background-image: url("../images/icon-user.jpg");
+}
+/* line 27, ../sass/main.scss */
+.login-form .password, .user-form .password {
+  background-image: url("../images/icon-lock.jpg");
+}
+/* line 30, ../sass/main.scss */
+.login-form .submit, .user-form .submit {
+  background-color: #3f939e;
+  border: solid 1px #3f939e;
+  width: 100%;
+  height: 50px;
+  border-radius: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+/* line 40, ../sass/main.scss */
+.login-form .submit:hover, .login-form .submit:focus, .user-form .submit:hover, .user-form .submit:focus {
+  opacity: 0.8;
+}
+/* line 44, ../sass/main.scss */
+.login-form .btn-cyan, .login-form .btn-normal, .user-form .btn-cyan, .user-form .btn-normal {
+  border: solid 1px #3f939e;
+}
+/* line 46, ../sass/main.scss */
+.login-form .btn-cyan:hover, .login-form .btn-normal:hover, .user-form .btn-cyan:hover, .user-form .btn-normal:hover {
+  opacity: 0.8;
+}
+/* line 50, ../sass/main.scss */
+.login-form .btn-cyan, .user-form .btn-cyan {
+  background-color: #3f939e;
+  color: #fff;
+}
+/* line 54, ../sass/main.scss */
+.login-form .btn-normal, .user-form .btn-normal {
+  background-color: #fff;
+  color: #3f939e;
+}
+
+/* line 59, ../sass/main.scss */
+.page-header {
+  color: #3f939e;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 68px;
+  margin-bottom: 30px;
+}
+
+/* line 65, ../sass/main.scss */
+.section-title {
+  color: #3f939e;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 22px;
+}
+
+/* line 70, ../sass/main.scss */
+.myTable {
+  border: dashed 1px #3f939e;
+}
+/* line 72, ../sass/main.scss */
+.myTable thead tr th {
+  font-size: 16px;
+  color: #fff;
+  text-transform: uppercase;
+  background-color: #3f939e;
+  border-bottom: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+/* line 80, ../sass/main.scss */
+.myTable tbody tr td {
+  border-top: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}

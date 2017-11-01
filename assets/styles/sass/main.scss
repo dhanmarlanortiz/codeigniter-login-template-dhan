@@ -1,0 +1,84 @@
+$helvetica: Arial, Helvetica, sans-serif;
+$black: "Arial Black", Gadget, sans-serif;
+$blue: #268cb7;
+$cyan: #3f939e;
+
+.login-form, .user-form {
+    .form-sub {
+        color: #444444;
+        font-family: $helvetica;
+        font-size: 24px;
+        opacity: 0.6;
+    }
+    .email, .password, .username {
+        height: 45px;
+        border: solid 1px $cyan;
+        margin: 15px 0;
+        background-repeat: no-repeat;
+        background-size: contain;
+        padding-left: 50px
+    }
+    .email {
+        background-image: url('../images/icon-envelope.jpg');
+    }
+    .username {
+        background-image: url('../images/icon-user.jpg');
+    }
+    .password {
+        background-image: url('../images/icon-lock.jpg');
+    }
+    .submit {
+        background-color: $cyan;
+        border: solid 1px $cyan;
+        width: 100%;
+        height: 50px;
+        border-radius: 0;
+        font-family: $helvetica;
+        font-size: 20px;
+        text-transform: uppercase;
+
+        &:hover, &:focus {
+            opacity: 0.8;
+        }
+    }
+    .btn-cyan, .btn-normal {
+        border: solid 1px $cyan;
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+    .btn-cyan {
+        background-color: $cyan;
+        color: #fff;
+    }
+    .btn-normal {
+        background-color: #fff;
+        color: $cyan;
+    }
+}
+.page-header {
+        color: $cyan;
+        font-family: $helvetica;
+        font-size: 68px;
+        margin-bottom: 30px;
+    }
+.section-title {
+    color: $cyan;
+    font-family: $helvetica;
+    font-size: 22px;
+}
+.myTable {
+    border: dashed 1px $cyan;
+    thead tr th {
+        font-size: 16px;
+        color: #fff;
+        text-transform: uppercase;
+        background-color: $cyan;
+        border-bottom: 0;
+        font-family: $helvetica;
+    }
+    tbody tr td {
+        border-top: 0;
+        font-family: $helvetica;
+    }
+}

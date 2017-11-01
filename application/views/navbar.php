@@ -1,0 +1,1 @@
+<a class="btn btn-link center-block" href="<?php echo site_url('user/logout'); ?>">Logout</a>
