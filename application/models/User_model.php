@@ -43,4 +43,22 @@ class User_model extends CI_Model {
 		$query = $this->db->insert('accounts', $data);
 		return $this->db->affected_rows();
 	}
+
+	/* update user */
+	public function update_user($username, $email, $password, $id) {
+		echo $username."<br>";
+		echo $email."<br>";
+		echo $password."<br>";
+		echo $id."<br>";
+
+		$encrypt = password_hash($password, PASSWORD_DEFAULT); //encrypt password
+		$data = array(
+			'username' => $username,
+			'email' => $email,
+			'password' => $encrypt
+		);
+		$query = $this->db->update('accounts', $data, array('id' => $id));
+		echo $this->db->affected_rows();
+		return $this->db->affected_rows();
+	}
 }

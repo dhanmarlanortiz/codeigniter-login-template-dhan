@@ -112,7 +112,7 @@ class User extends CI_Controller {
 		$this->table->set_heading('Username', 'Email', '&nbsp;');
 		if(null !== $list) {
 			foreach ($list as $l):
-				$this->table->add_row($l['username'], $l['email'], '&nbsp;');
+				$this->table->add_row($l['username'], $l['email'], '<a href="'.site_url().'/user/profile/'.$l['id'].'">View</a>');
 			endforeach;
 		}
 
@@ -121,10 +121,136 @@ class User extends CI_Controller {
 		$this->table->set_template($template);
 		$data['user_table'] = $this->table->generate();
 
-
 		$this->load->view('header');
 		$this->load->view('users/user-accounts', $data);
 		$this->load->view('navbar');
 		$this->load->view('footer');
+	} // user_accounts end
+
+	public function profile($id) {
+		$profile = $this->User_model->get_user($id);
+		
+		$this->table->add_row(array('ID', $profile['id']));
+		$this->table->add_row(array('Username', $profile['username']));
+		$this->table->add_row(array('Email', $profile['email']));
+		$this->table->add_row(array('&#x270e;', anchor(site_url().'/user/update/'.$profile['id'], 'Edit', 'title="Edit"') ));
+
+		$template = array('table_open' => '<table class="table table-striped myTable">');
+		$this->table->set_template($template);
+		$data['profile'] = $this->table->generate();
+
+		$this->load->view('header');
+		$this->load->view('users/profile', $data);
+		$this->load->view('navbar');
+		$this->load->view('footer');
+	}
+
+	public function update($id) {
+		$profile = $this->User_model->get_user($id);
+		$default_username = $profile['username'];
+		$default_email = $profile['email'];
+		$default_id = $profile['id'];
+
+		if(null !== $this->input->post('save')) {
+			/* Validate input */
+			$new_uname = $this->input->post('username');
+			$new_email = $this->input->post('email');
+			if($new_uname == $default_username) {
+				$uniq_uname = '';
+			}else {
+				$uniq_uname = '|is_unique[accounts.username]';
+			}
+
+			if($new_uname == $default_username) {
+				$uniq_email = '';
+			}else {
+				$uniq_email = '|is_unique[accounts.email]';
+			}
+
+			$this->form_validation->set_rules('username', 'Username', 'required|alpha_dash|max_length[30]|min_length[6]'.$uniq_uname);
+			$this->form_validation->set_rules('email', 'Email', 'required|max_length[50]|valid_email'.$uniq_email);
+			$this->form_validation->set_rules('password', 'Password', 'required|alpha_dash|max_length[30]|min_length[8]');
+			$this->form_validation->set_rules('password2', 'Password confirm', 'required|alpha_dash|max_length[30]|matches[password]');
+			/* Validation success */
+			if ($this->form_validation->run()) {
+				$data['update_user'] = $this->User_model->update_user(
+								$this->input->post('username'),
+								$this->input->post('email'),
+								$this->input->post('password'),
+								$this->input->post('user_id')
+							);
+				if($data['update_user'] == 1) { // Database update success, refresh page, display alert msg, clear fields
+					header("Location: ".site_url('user/profile/').$id."?update_alert=Success");
+				}else { // Database update failed, display alert msg, repopulate fields
+					$data['update_user'] = "Failed! Please try again.";
+					$default_username = set_value('username');
+					$default_email = set_value('email');
+				}
+			}else { // Validation failed, repopulate fields
+				$default_username = set_value('username');
+				$default_email = set_value('email');
+			}
+		}else if(null !== $this->input->post('reset')) {
+			header("Location: ".site_url('user/profile/').$id."");
+		}
+
+		$username = array(
+	        'type'  => 'text',
+	        'name'  => 'username',
+	        'value' => $default_username,
+	        'placeholder' => 'Username',
+		);
+		$email = array(
+	        'type'  => 'text',
+	        'name'  => 'email',
+	        'value' => $default_email,
+	        'placeholder' => 'Email'
+		);
+		$password = array(
+	        'type'  => 'password',
+	        'name'  => 'password',
+	        'placeholder' => 'Password'
+		);
+		$password2 = array(
+	        'type'  => 'password',
+	        'name'  => 'password2',
+	        'placeholder' => 'Password confirm'
+		);
+		$user_id = array(
+	        'type'  => 'hidden',
+	        'name'  => 'user_id',
+	        'value' =>  $default_id
+		);
+		$save = array(
+	        'type'  => 'submit',
+	        'name'  => 'save',
+	        'value' => 'Save',
+	        'class' => 'btn-link'
+		);
+
+		$this->table->add_row(array(form_open('user/update/'.$profile['id'].'').'ID', $profile['id']));
+		$this->table->add_row(array('Username', form_input($username)));
+		$this->table->add_row(array('Email', form_input($email)));
+		$this->table->add_row(array('Password', form_input($password)));
+		$this->table->add_row(array('Password', form_input($password2)));
+		$this->table->add_row(array('&#x270e;', 
+								anchor(site_url().'/user/profile/'.$id, 'Cancel', 'title="Cancel"')."&nbsp;&nbsp;|&nbsp;&nbsp;". 
+								anchor(site_url().'/user/update/'.$id, 'Reset', 'title="Reset"')."&nbsp;&nbsp;|". 
+								form_submit($save).form_input($user_id).
+								form_close()
+							));
+		
+		$template = array('table_open' => '<table class="table table-striped myTable">');
+		$this->table->set_template($template);
+		$data['profile'] = $this->table->generate();
+
+		$this->load->view('header');
+		$this->load->view('users/profile', $data);
+		$this->load->view('navbar');
+		$this->load->view('footer');
+	}
+
+	public function save() {
+		echo "save";
 	}
 }
